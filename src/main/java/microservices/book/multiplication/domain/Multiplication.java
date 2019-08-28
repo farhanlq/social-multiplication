@@ -5,9 +5,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
-import lombok.EqualsAndHashCode;
-
-@EqualsAndHashCode
 @Entity
 public class Multiplication {
 
@@ -15,17 +12,15 @@ public class Multiplication {
 	@GeneratedValue
 	@Column(name = "MULTIPLICATION_ID")
 	private Long id;
-	
-	
+
 	private int factorA;
-	
+
 	private int factorB;
-	
-	
-	public Multiplication(int factorA, int factorB ) {
+
+	public Multiplication(int factorA, int factorB) {
 		this.factorA = factorA;
 		this.factorB = factorB;
-	
+
 	}
 
 	public int getFactorA() {
@@ -41,13 +36,4 @@ public class Multiplication {
 		return "Multiplication [factorA=" + factorA + ", factorB=" + factorB + "]";
 	}
 
-	
-
-	
-	
-	
-	
-	
-	
-	
 }
