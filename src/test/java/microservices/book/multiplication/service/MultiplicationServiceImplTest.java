@@ -10,6 +10,7 @@ import java.util.Optional;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Matchers;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
@@ -57,7 +58,7 @@ public class MultiplicationServiceImplTest {
 		boolean attemptResult = multiplicaitonServiceImpl.checkAttempt(attempt);
 		assertThat(attemptResult).isTrue();
 
-		verify(attemptRepository).save(verifiedAttempt);
+		verify(attemptRepository).save(Matchers.refEq(verifiedAttempt));
 
 	}
 
@@ -70,7 +71,7 @@ public class MultiplicationServiceImplTest {
 		boolean attemptResult = multiplicaitonServiceImpl.checkAttempt(attempt);
 		assertThat(attemptResult).isFalse();
 
-		verify(attemptRepository).save(attempt);
+		verify(attemptRepository).save(Matchers.refEq(attempt));
 	}
 
 	@Test

@@ -1,11 +1,11 @@
 package microservices.book.multiplication.controller;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.*;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
 import java.io.IOException;
+import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -42,6 +42,10 @@ public class MultiplicationResultAttemptControllerTest {
 
 	private JacksonTester<MultiplicationResultAttempt> jsonResult;
 	private JacksonTester<ResultResponse> jsonResponse;
+	
+	private JacksonTester<MultiplicationResultAttempt> jsonResultAttempt;
+	
+	private JacksonTester<List<MultiplicationResultAttempt>> jsonResultAttemptList;	
 
 	@Before
 	public void setup() {
@@ -78,6 +82,15 @@ public class MultiplicationResultAttemptControllerTest {
 										.write(new MultiplicationResultAttempt(attempt.getUser(),
 												attempt.getMultiplication(), attempt.getResultAttempt(), correct))
 										.getJson());
+	}
+	
+	
+	@Test
+	public void getUserStats() {
+		User user = new User("farhan_laeeq");
+		Multiplication multiplication = new Multiplication(50,70);
+		MultiplicationResultAttempt attempt = new MultiplicationResultAttempt(user, multiplication, 3500, true);
+		
 	}
 
 }
