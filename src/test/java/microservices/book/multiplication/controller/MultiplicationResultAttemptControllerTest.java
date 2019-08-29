@@ -28,7 +28,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import microservices.book.multiplication.domain.Multiplication;
 import microservices.book.multiplication.domain.MultiplicationResultAttempt;
 import microservices.book.multiplication.domain.User;
-import microservices.book.multiplication.response.ResultResponse;
 import microservices.book.multiplication.service.MultiplicationService;
 
 @RunWith(SpringRunner.class)
@@ -43,9 +42,6 @@ public class MultiplicationResultAttemptControllerTest {
 	private MockMvc mockMvc;
 
 	private JacksonTester<MultiplicationResultAttempt> jsonResult;
-	private JacksonTester<ResultResponse> jsonResponse;
-
-	private JacksonTester<MultiplicationResultAttempt> jsonResultAttempt;
 
 	private JacksonTester<List<MultiplicationResultAttempt>> jsonResultAttemptList;
 
@@ -91,7 +87,7 @@ public class MultiplicationResultAttemptControllerTest {
 		User user = new User("farhan_laeeq");
 		Multiplication multiplication = new Multiplication(50, 70);
 		MultiplicationResultAttempt attempt = new MultiplicationResultAttempt(user, multiplication, 3500, true);
-		List<MultiplicationResultAttempt> recentAttempts = new ArrayList();
+		List<MultiplicationResultAttempt> recentAttempts = new ArrayList<>();
 		recentAttempts.add(attempt);
 		recentAttempts.add(attempt);
 

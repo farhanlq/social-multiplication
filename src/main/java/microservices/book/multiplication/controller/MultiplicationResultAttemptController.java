@@ -40,7 +40,7 @@ public class MultiplicationResultAttemptController {
 	}
 
 	@GetMapping
-	ResponseEntity<List<MultiplicationResultAttempt>> getStatistics(String alias) {
+	ResponseEntity<List<MultiplicationResultAttempt>> getStatistics(@RequestParam("alias") String alias) {
 		return ResponseEntity.ok(multiplicationService.getStatsForUser(alias));
 	}
 
