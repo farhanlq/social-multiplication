@@ -1,11 +1,13 @@
 package microservices.book.multiplication.domain;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+@Entity
 public final class MultiplicationResultAttempt {
 
 	@Id

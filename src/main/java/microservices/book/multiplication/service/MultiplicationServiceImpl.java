@@ -19,9 +19,7 @@ import microservices.book.multiplication.repository.UserRepository;
 public class MultiplicationServiceImpl implements MultiplicationService {
 
 	private RandomGeneratorService randomGeneratorService;
-
 	private MultiplicationResultAttemptRepository attemptRepository;
-
 	private UserRepository userRepository;
 
 	@Autowired
@@ -46,10 +44,10 @@ public class MultiplicationServiceImpl implements MultiplicationService {
 
 		Optional<User> user = userRepository.findByAlias(resultAttempt.getUser().getAlias());
 
+		Assert.isTrue(!resultAttempt.isCorrect());
+
 		boolean isCorrect = resultAttempt.getResultAttempt() == resultAttempt.getMultiplication().getFactorA()
 				* resultAttempt.getMultiplication().getFactorB();
-
-		Assert.isTrue(!resultAttempt.isCorrect());
 
 		MultiplicationResultAttempt checkedAttempt = new MultiplicationResultAttempt(
 				user.orElse(resultAttempt.getUser()), resultAttempt.getMultiplication(),
@@ -63,7 +61,5 @@ public class MultiplicationServiceImpl implements MultiplicationService {
 	public List<MultiplicationResultAttempt> getStatsForUser(String userAlias) {
 		return attemptRepository.findTop5ByUserAliasOrderByIdDesc(userAlias);
 	}
-	
-	
 
 }

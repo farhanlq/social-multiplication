@@ -10,9 +10,7 @@ import java.util.Optional;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.ArgumentMatcher;
 import org.mockito.ArgumentMatchers;
-import org.mockito.Matchers;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
@@ -82,7 +80,7 @@ public class MultiplicationServiceImplTest {
 		User user = new User("john_doe");
 		MultiplicationResultAttempt attempt1 = new MultiplicationResultAttempt(user, multiplication, 3010, false);
 		MultiplicationResultAttempt attempt2 = new MultiplicationResultAttempt(user, multiplication, 3051, false);
-		List<MultiplicationResultAttempt> latestAttempts = new ArrayList();
+		List<MultiplicationResultAttempt> latestAttempts = new ArrayList<>();
 		latestAttempts.add(attempt1);
 		latestAttempts.add(attempt2);
 		when(userRepository.findByAlias("farhan_laeeq")).thenReturn(Optional.empty());

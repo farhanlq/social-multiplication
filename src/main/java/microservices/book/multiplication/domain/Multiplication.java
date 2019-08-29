@@ -17,6 +17,9 @@ public class Multiplication {
 
 	private int factorB;
 
+	public Multiplication() {
+	}
+	
 	public Multiplication(int factorA, int factorB) {
 		this.factorA = factorA;
 		this.factorB = factorB;

@@ -2,9 +2,11 @@ package microservices.book.multiplication.controller;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Before;
@@ -42,10 +44,10 @@ public class MultiplicationResultAttemptControllerTest {
 
 	private JacksonTester<MultiplicationResultAttempt> jsonResult;
 	private JacksonTester<ResultResponse> jsonResponse;
-	
+
 	private JacksonTester<MultiplicationResultAttempt> jsonResultAttempt;
-	
-	private JacksonTester<List<MultiplicationResultAttempt>> jsonResultAttemptList;	
+
+	private JacksonTester<List<MultiplicationResultAttempt>> jsonResultAttemptList;
 
 	@Before
 	public void setup() {
@@ -83,14 +85,24 @@ public class MultiplicationResultAttemptControllerTest {
 												attempt.getMultiplication(), attempt.getResultAttempt(), correct))
 										.getJson());
 	}
-	
-	
+
 	@Test
-	public void getUserStats() {
+	public void getUserStats() throws Exception {
 		User user = new User("farhan_laeeq");
-		Multiplication multiplication = new Multiplication(50,70);
+		Multiplication multiplication = new Multiplication(50, 70);
 		MultiplicationResultAttempt attempt = new MultiplicationResultAttempt(user, multiplication, 3500, true);
-		
+		List<MultiplicationResultAttempt> recentAttempts = new ArrayList();
+		recentAttempts.add(attempt);
+		recentAttempts.add(attempt);
+
+		when(multiplicationService.getStatsForUser("farhan_laeeq")).thenReturn(recentAttempts);
+
+		MockHttpServletResponse response = mockMvc.perform(get("/results").param("alias", "farhan_laeeq")).andReturn()
+				.getResponse();
+
+		assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
+
+		assertThat(response.getContentAsString()).isEqualTo(jsonResultAttemptList.write(recentAttempts).getJson());
 	}
 
 }

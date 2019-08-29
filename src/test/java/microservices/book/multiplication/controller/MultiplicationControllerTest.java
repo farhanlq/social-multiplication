@@ -1,7 +1,6 @@
 package microservices.book.multiplication.controller;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
@@ -38,7 +37,7 @@ public class MultiplicationControllerTest {
 	@Before
 	public void setUp() throws Exception {
 		JacksonTester.initFields(this, new ObjectMapper());
-	}
+	}	
 
 	@Test
 	public void getRandomMultiplicationTest() throws Exception {
