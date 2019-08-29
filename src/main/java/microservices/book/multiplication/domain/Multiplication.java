@@ -19,7 +19,7 @@ public class Multiplication {
 
 	public Multiplication() {
 	}
-	
+
 	public Multiplication(int factorA, int factorB) {
 		this.factorA = factorA;
 		this.factorB = factorB;
@@ -32,6 +32,10 @@ public class Multiplication {
 
 	public int getFactorB() {
 		return factorB;
+	}
+
+	public Long getId() {
+		return id;
 	}
 
 	@Override

@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
+import microservices.book.multiplicatio.event.EventDispatcher;
+import microservices.book.multiplicatio.event.MultiplicationSolvedEvent;
 import microservices.book.multiplication.domain.Multiplication;
 import microservices.book.multiplication.domain.MultiplicationResultAttempt;
 import microservices.book.multiplication.domain.User;
@@ -21,13 +23,16 @@ public class MultiplicationServiceImpl implements MultiplicationService {
 	private RandomGeneratorService randomGeneratorService;
 	private MultiplicationResultAttemptRepository attemptRepository;
 	private UserRepository userRepository;
+	private EventDispatcher eventDispatcher;
 
 	@Autowired
 	public MultiplicationServiceImpl(RandomGeneratorService randomGeneratorService,
-			MultiplicationResultAttemptRepository attemptRepository, UserRepository userRepsoRepository) {
+			MultiplicationResultAttemptRepository attemptRepository, UserRepository userRepsoRepository,
+			EventDispatcher eventDispatcher) {
 		this.randomGeneratorService = randomGeneratorService;
 		this.attemptRepository = attemptRepository;
 		this.userRepository = userRepsoRepository;
+		this.eventDispatcher = eventDispatcher;
 	}
 
 	@Override
@@ -54,6 +59,10 @@ public class MultiplicationServiceImpl implements MultiplicationService {
 				resultAttempt.getResultAttempt(), isCorrect);
 
 		attemptRepository.save(checkedAttempt);
+
+		eventDispatcher.send(new MultiplicationSolvedEvent(checkedAttempt.getId(), checkedAttempt.getUser().getId(),
+				checkedAttempt.isCorrect()));
+
 		return isCorrect;
 	}
 

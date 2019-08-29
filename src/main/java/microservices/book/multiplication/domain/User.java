@@ -27,6 +27,10 @@ public final class User {
 		return alias;
 	}
 
+	public Long getId() {
+		return id;
+	}
+
 	@Override
 	public String toString() {
 		return "User [alias=" + alias + "]";

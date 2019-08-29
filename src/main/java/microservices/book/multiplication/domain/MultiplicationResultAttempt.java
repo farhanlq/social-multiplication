@@ -56,6 +56,10 @@ public final class MultiplicationResultAttempt {
 		return correct;
 	}
 
+	public Long getId() {
+		return id;
+	}
+
 	@Override
 	public String toString() {
 		return "MultiplicationResultAttempt [user=" + user + ", multiplication=" + multiplication + ", resultAttempt="
