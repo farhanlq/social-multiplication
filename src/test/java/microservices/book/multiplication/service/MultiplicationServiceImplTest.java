@@ -3,6 +3,7 @@ package microservices.book.multiplication.service;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.mockito.Matchers.eq;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -67,7 +68,7 @@ public class MultiplicationServiceImplTest {
 		
 		assertThat(attemptResult).isTrue();
 		verify(attemptRepository).save(ArgumentMatchers.refEq(verifiedAttempt));
-		verify(eventDispatcher).send(ArgumentMatchers.eq(event));
+		verify(eventDispatcher).send(eq(event));
 	}
 
 	@Test
@@ -82,7 +83,7 @@ public class MultiplicationServiceImplTest {
 
 		assertThat(attemptResult).isFalse();
 		verify(attemptRepository).save(ArgumentMatchers.refEq(attempt));
-		verify(eventDispatcher).send(ArgumentMatchers.eq(event));
+		verify(eventDispatcher).send(eq(event));
 	}
 
 	@Test
