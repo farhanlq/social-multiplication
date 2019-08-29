@@ -15,6 +15,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import microservices.book.multiplicatio.event.EventDispatcher;
+import microservices.book.multiplicatio.event.MultiplicationSolvedEvent;
 import microservices.book.multiplication.domain.Multiplication;
 import microservices.book.multiplication.domain.MultiplicationResultAttempt;
 import microservices.book.multiplication.domain.User;
@@ -58,12 +59,15 @@ public class MultiplicationServiceImplTest {
 		User user = new User("farhan_laeeq");
 		MultiplicationResultAttempt attempt = new MultiplicationResultAttempt(user, multiplication, 3000, false);
 		MultiplicationResultAttempt verifiedAttempt = new MultiplicationResultAttempt(user, multiplication, 3000, true);
+		MultiplicationSolvedEvent event = new MultiplicationSolvedEvent(attempt.getId(),
+                attempt.getUser().getId(), true);	
+		
 		when(userRepository.findByAlias("farhan_laeeq")).thenReturn(Optional.empty());
 		boolean attemptResult = multiplicaitonServiceImpl.checkAttempt(attempt);
+		
 		assertThat(attemptResult).isTrue();
-
 		verify(attemptRepository).save(ArgumentMatchers.refEq(verifiedAttempt));
-
+		verify(eventDispatcher).send(ArgumentMatchers.eq(event));
 	}
 
 	@Test
@@ -71,11 +75,14 @@ public class MultiplicationServiceImplTest {
 		Multiplication multiplication = new Multiplication(50, 60);
 		User user = new User("farhan_laeeq");
 		MultiplicationResultAttempt attempt = new MultiplicationResultAttempt(user, multiplication, 3010, false);
+		MultiplicationSolvedEvent event = new MultiplicationSolvedEvent(attempt.getId(),
+                attempt.getUser().getId(), false);
 		when(userRepository.findByAlias("farhan_laeeq")).thenReturn(Optional.empty());
 		boolean attemptResult = multiplicaitonServiceImpl.checkAttempt(attempt);
-		assertThat(attemptResult).isFalse();
 
+		assertThat(attemptResult).isFalse();
 		verify(attemptRepository).save(ArgumentMatchers.refEq(attempt));
+		verify(eventDispatcher).send(ArgumentMatchers.eq(event));
 	}
 
 	@Test
