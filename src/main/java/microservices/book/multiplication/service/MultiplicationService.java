@@ -8,7 +8,11 @@ import microservices.book.multiplication.domain.MultiplicationResultAttempt;
 public interface MultiplicationService {
 
 	Multiplication createRandomMultiplication();
-	
+
 	boolean checkAttempt(MultiplicationResultAttempt resultAttempt);
+
 	public List<MultiplicationResultAttempt> getStatsForUser(String userAlias);
+
+	public MultiplicationResultAttempt getResultById(final Long resultId);
+
 }
