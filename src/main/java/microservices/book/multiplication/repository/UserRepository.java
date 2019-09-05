@@ -1,4 +1,4 @@
-	package microservices.book.multiplication.repository;
+package microservices.book.multiplication.repository;
 
 import java.util.Optional;
 
@@ -8,6 +8,5 @@ import microservices.book.multiplication.domain.User;
 
 public interface UserRepository extends CrudRepository<User, Long> {
 
-	
 	Optional<User> findByAlias(String alias);
 }

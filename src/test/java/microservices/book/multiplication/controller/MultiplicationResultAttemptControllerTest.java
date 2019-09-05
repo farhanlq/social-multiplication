@@ -101,4 +101,18 @@ public class MultiplicationResultAttemptControllerTest {
 		assertThat(response.getContentAsString()).isEqualTo(jsonResultAttemptList.write(recentAttempts).getJson());
 	}
 
+	@Test
+	public void getResultByIdTest() throws Exception {
+		User user = new User("farhan_laeeq");
+		Multiplication multiplication = new Multiplication(50, 70);
+		MultiplicationResultAttempt attempt = new MultiplicationResultAttempt(user, multiplication, 3500, true);
+
+		when(multiplicationService.getResultById(4L)).thenReturn(attempt);
+
+		MockHttpServletResponse response = mockMvc.perform(get("/results/4")).andReturn().getResponse();
+
+		assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
+
+		assertThat(response.getContentAsString()).isEqualTo(jsonResult.write(attempt).getJson());
+	}
 }
