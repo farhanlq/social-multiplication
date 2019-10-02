@@ -1,4 +1,4 @@
-package microservices.book.multiplicatio.event;
+package microservices.book.multiplication.event;
 
 import java.io.Serializable;
 
